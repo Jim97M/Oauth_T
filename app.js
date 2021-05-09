@@ -12,10 +12,12 @@ const app  = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.urlencoded({extended: true}))
-
+const {verifyAccessToken} = require('./helpers/jwt_helper')
 
 //Get Route
-app.get('/',  async(req, res, next) => {
+//Parse the function as a parameter
+app.get('/', verifyAccessToken,  async(req, res, next) => {
+    
     res.send("Routing Express");
 })
 
